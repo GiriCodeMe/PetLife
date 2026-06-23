@@ -1,0 +1,150 @@
+{
+  "application_id": "APP-2025-BISCUIT-001",
+  "case_bundle": {
+    "invoice_data": {
+      "request_id": "inv-biscuit-demo-001",
+      "status": "SUCCESS",
+      "processing_time_ms": 1240,
+      "data": {
+        "clinic_name": "Paddington Veterinary Centre",
+        "clinic_address": "142 Praed Street, London W2 1HB",
+        "invoice_number": "PVC-2025-00847",
+        "invoice_date": "2025-03-18",
+        "visit_date": "2025-03-18",
+        "patient_name": "Biscuit",
+        "patient_species": "Canine",
+        "patient_breed": "French Bulldog",
+        "owner_name": "Sarah Mitchell",
+        "line_items": [
+          { "description": "Consultation - Dermatology Follow-up", "category": "CONSULTATION", "quantity": 1, "unit_price": 85.00, "line_total": 85.00 },
+          { "description": "Intradermal Allergy Testing", "category": "DIAGNOSTICS", "quantity": 1, "unit_price": 320.00, "line_total": 320.00 },
+          { "description": "Apoquel 16mg Tablets x30", "category": "MEDICATION", "quantity": 1, "unit_price": 74.50, "line_total": 74.50 },
+          { "description": "Cytopoint 40mg Injection", "category": "MEDICATION", "quantity": 1, "unit_price": 112.00, "line_total": 112.00 },
+          { "description": "Skin Cytology and Culture", "category": "LABORATORY", "quantity": 1, "unit_price": 68.00, "line_total": 68.00 }
+        ],
+        "subtotal": 659.50,
+        "total_due": 659.50,
+        "currency": "GBP"
+      }
+    },
+    "adjudication_history": {
+      "claim_id": "CLM-2025-0847",
+      "adjudication_date": "2025-03-20",
+      "overall_status": "PARTIALLY_APPROVED",
+      "total_billed": 659.50,
+      "total_eligible": 191.50,
+      "deductible_applied": 100.00,
+      "coinsurance_applied": 18.30,
+      "total_reimbursable": 73.20,
+      "updated_benefit_balance": 7926.80,
+      "adjudicator": "AI",
+      "line_decisions": [
+        { "description": "Consultation - Dermatology Follow-up", "category": "CONSULTATION", "billed_amount": 85.00, "eligible_amount": 85.00, "deductible_portion": 85.00, "coinsurance_portion": 0.00, "reimbursable_amount": 0.00, "status": "APPROVED", "denial_reason": null, "rule_applied": "CON-001" },
+        { "description": "Intradermal Allergy Testing", "category": "DIAGNOSTICS", "billed_amount": 320.00, "eligible_amount": 0.00, "deductible_portion": 0.00, "coinsurance_portion": 0.00, "reimbursable_amount": 0.00, "status": "DENIED", "denial_reason": "Pre-existing condition exclusion EX-01: Atopic Dermatitis", "rule_applied": "EXCL-PREEX-001" },
+        { "description": "Apoquel 16mg Tablets x30", "category": "MEDICATION", "billed_amount": 74.50, "eligible_amount": 0.00, "deductible_portion": 0.00, "coinsurance_portion": 0.00, "reimbursable_amount": 0.00, "status": "DENIED", "denial_reason": "Pre-existing condition exclusion EX-01: ongoing atopic treatment", "rule_applied": "EXCL-PREEX-001" },
+        { "description": "Cytopoint 40mg Injection", "category": "MEDICATION", "billed_amount": 112.00, "eligible_amount": 0.00, "deductible_portion": 0.00, "coinsurance_portion": 0.00, "reimbursable_amount": 0.00, "status": "DENIED", "denial_reason": "Pre-existing condition exclusion EX-01: ongoing atopic treatment", "rule_applied": "EXCL-PREEX-001" },
+        { "description": "Skin Cytology and Culture", "category": "LABORATORY", "billed_amount": 68.00, "eligible_amount": 68.00, "deductible_portion": 15.00, "coinsurance_portion": 10.60, "reimbursable_amount": 42.40, "status": "PARTIALLY_APPROVED", "denial_reason": null, "rule_applied": "LAB-001" }
+      ]
+    },
+    "medical_codes": {
+      "coding_request_id": "cod-biscuit-demo-001",
+      "claim_id": "CLM-2025-0847",
+      "coded_date": "2025-03-18",
+      "overall_confidence": "HIGH",
+      "requires_review": false,
+      "adjudicator": "AI",
+      "coded_findings": [
+        { "finding_id": "F001", "category": "DIAGNOSIS", "source_text": "Atopic dermatitis, environmental allergens", "snomed_code": "24079001", "snomed_display": "Atopic dermatitis", "icd10_code": "L20.89", "icd10_display": "Other atopic dermatitis", "confidence_score": 0.97, "confidence_tier": "HIGH", "is_primary_diagnosis": true, "is_pre_existing": true },
+        { "finding_id": "F002", "category": "DIAGNOSIS", "source_text": "Secondary allergic contact dermatitis", "snomed_code": "40275004", "snomed_display": "Allergic contact dermatitis", "icd10_code": "L23.9", "icd10_display": "Allergic contact dermatitis, unspecified cause", "confidence_score": 0.89, "confidence_tier": "HIGH", "is_primary_diagnosis": false, "is_pre_existing": false },
+        { "finding_id": "F003", "category": "PROCEDURE", "source_text": "Intradermal allergy panel conducted", "snomed_code": "395142003", "snomed_display": "Intradermal allergen skin test", "icd10_code": "Z01.82", "icd10_display": "Allergy testing", "confidence_score": 0.99, "confidence_tier": "HIGH", "is_primary_diagnosis": false, "is_pre_existing": false },
+        { "finding_id": "F004", "category": "MEDICATION", "source_text": "Apoquel 16mg once daily", "snomed_code": "428567001", "snomed_display": "Oclacitinib maleate", "icd10_code": "Z79.899", "icd10_display": "Other long-term medication use", "confidence_score": 0.98, "confidence_tier": "HIGH", "is_primary_diagnosis": false, "is_pre_existing": true },
+        { "finding_id": "F005", "category": "MEDICATION", "source_text": "Cytopoint 40mg SC administered", "snomed_code": "767574000", "snomed_display": "Lokivetmab injection", "icd10_code": "Z79.899", "icd10_display": "Other long-term medication use", "confidence_score": 0.91, "confidence_tier": "HIGH", "is_primary_diagnosis": false, "is_pre_existing": false }
+      ],
+      "unresolved_terms": []
+    },
+    "breed_verification": {
+      "verification_id": "vrf-biscuit-demo-001",
+      "verified_date": "2025-03-18",
+      "overall_verdict": "VERIFIED",
+      "recommended_action": "PROCEED",
+      "adjudicator": "AI",
+      "notes": null,
+      "breed_assessment": {
+        "predicted_species": "Canine",
+        "top_breeds": [
+          { "name": "French Bulldog", "confidence": 0.942, "tier": 3 },
+          { "name": "Boston Terrier", "confidence": 0.048, "tier": 2 },
+          { "name": "Pug", "confidence": 0.010, "tier": 3 }
+        ],
+        "primary_breed": "French Bulldog",
+        "primary_confidence": 0.942,
+        "predicted_risk_tier": 3,
+        "declared_vs_predicted": true,
+        "tier_delta": 0,
+        "visual_characteristics": ["bat ears", "brachycephalic muzzle", "compact muscular build", "smooth fawn coat", "white chest blaze", "screw tail"]
+      },
+      "fraud_signals": [],
+      "image_quality": {
+        "resolution": "1024x768",
+        "quality_score": 0.87,
+        "has_exif": true,
+        "subject_coverage_pct": 0.72,
+        "quality_verdict": "PASS"
+      }
+    },
+    "history_review": {
+      "review_id": "rev-biscuit-demo-001",
+      "status": "COMPLETED",
+      "overall_verdict": "PRE_EXISTING_FOUND",
+      "underwriting_recommendation": "APPROVE_WITH_EXCLUSIONS",
+      "policy_start_date": "2025-06-01",
+      "record_span": {
+        "earliest_date": "2022-01-15",
+        "latest_date": "2025-03-18",
+        "total_pages": 42,
+        "source_clinics": ["Paddington Veterinary Centre", "BVSC Dermatology", "RVC Queen Mother Hospital"]
+      },
+      "pre_existing_conditions": [
+        {
+          "condition_id": "COND-001",
+          "condition_name": "Atopic Dermatitis",
+          "icd10_code": "L20.89",
+          "snomed_code": "24079001",
+          "classification": "CONFIRMED_PRE_EXISTING",
+          "first_occurrence_date": "2022-06-14",
+          "first_occurrence_source": "Paddington Veterinary Centre",
+          "latest_occurrence_date": "2025-01-20",
+          "occurrence_count": 7,
+          "is_chronic": true,
+          "confidence": "HIGH",
+          "rule_applied": "PRE-EXIST-RULE-001"
+        },
+        {
+          "condition_id": "COND-002",
+          "condition_name": "Brachycephalic Obstructive Airway Syndrome",
+          "icd10_code": "J98.09",
+          "snomed_code": "1148943006",
+          "classification": "PROBABLE_PRE_EXISTING",
+          "first_occurrence_date": "2022-09-03",
+          "first_occurrence_source": "BVSC Dermatology",
+          "latest_occurrence_date": "2023-11-08",
+          "occurrence_count": 3,
+          "is_chronic": false,
+          "confidence": "MEDIUM",
+          "rule_applied": "PRE-EXIST-RULE-002"
+        }
+      ],
+      "summary": "Biscuit has a 3.2-year veterinary record across 3 London clinics. Two conditions pre-date the proposed policy start: Atopic Dermatitis (chronic, 7 recorded episodes, ongoing Apoquel prescription) and BOAS (3 interventions including surgical nares widening in 2023). Remaining conditions are incidental or post-policy in origin and are fully coverable. No record gaps beyond 60 days were identified."
+    }
+  },
+  "application_form": {
+    "policy_holder_name": "Sarah Mitchell",
+    "pet_name": "Biscuit",
+    "species": "canine",
+    "declared_breed": "French Bulldog",
+    "date_of_birth": "2021-04-12",
+    "postcode": "SW1A 2AA",
+    "policy_type": "ACCIDENT_ILLNESS"
+  },
+  "priority": "STANDARD"
+}

@@ -26,6 +26,7 @@ from fastapi import (
     UploadFile,
     status,
 )
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sse_starlette.sse import EventSourceResponse
 
@@ -70,6 +71,14 @@ app = FastAPI(
     title="UC-05 Longitudinal Medical History Review",
     version="1.0.0",
     description="Asynchronous veterinary medical history review using Llama 3.3 70B via Ollama.",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 

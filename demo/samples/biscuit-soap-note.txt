@@ -1,0 +1,65 @@
+PATIENT: Biscuit | Species: Canine - French Bulldog | DOB: 2021-04-12 | Owner: Sarah Mitchell
+DATE: 2025-03-18 | Attending: Dr Priya Nair MRCVS | Clinic: Paddington Veterinary Centre
+Note Type: SOAP | Claim ID: CLM-2025-0847 | Member ID: MBR-00123
+
+SUBJECTIVE
+Owner reports that Biscuit has been scratching excessively for the past 3 weeks, primarily
+affecting the face, paws, axillae and ventral abdomen. Biscuit was previously diagnosed with
+atopic dermatitis in June 2022 and has been on intermittent Apoquel therapy since. Owner notes
+seasonal exacerbation each spring. Current episode is more severe than previous years; dog is
+losing sleep and breaking skin on paws due to self-trauma. No changes to diet, household
+cleaners, or bedding. Owner reports head-shaking resolved since last otitis episode in July 2024.
+
+OBJECTIVE
+T: 38.4 C  HR: 88 bpm  RR: 22 bpm  Weight: 12.8 kg  BCS: 5/9
+
+Skin examination: Diffuse erythema and lichenification on ventral abdomen, medial thighs and
+axillae. Excoriation present on dorsal paws bilaterally. Hyperpigmentation in inguinal fold
+consistent with chronic pruritic change. Skin folds moist but no secondary bacterial infection
+on cytology — neutrophils absent, Malassezia yeast 2+ on dorsal paw cytology. Ear canals clear
+bilaterally. Mild conjunctival erythema OD only.
+
+Intradermal allergy test performed today:
+- House dust mite Dermatophagoides pteronyssinus: 3+ wheal (strongly positive)
+- Grass pollen mix (5-grass): 3+ wheal (strongly positive)
+- Storage mites Tyrophagus putrescentiae: 2+ (moderate positive)
+- Cat dander: negative
+- Tree pollen mix: 1+ (borderline)
+- Full food panel (chicken, beef, wheat, soy, egg, dairy): all negative
+
+ASSESSMENT
+1. Atopic Dermatitis — environmental allergens (HDM, grass pollen, storage mites)
+   Chronic, recurring condition — first recorded June 2022, predating current policy proposal.
+   ICD-10-CM: L20.89 | SNOMED-CT: 24079001 | PRIMARY DIAGNOSIS | PRE-EXISTING CONDITION
+
+2. Allergic Contact Dermatitis — secondary, ventral distribution consistent with contact
+   allergen exposure on grass/ground surfaces.
+   ICD-10-CM: L23.9 | SNOMED-CT: 40275004
+
+3. Secondary Malassezia dermatitis — mild, self-trauma induced on paws.
+   ICD-10-CM: B36.0 | SNOMED-CT: 57569003
+
+PLAN
+1. Apoquel (oclacitinib maleate) 16mg SID x30 days. If inadequate response at 2 weeks,
+   increase to BID and reassess. Ongoing chronic prescription required.
+
+2. Cytopoint (lokivetmab) 40mg SC administered today. Expected duration 4-8 weeks.
+   Schedule repeat injection if clinical signs return.
+
+3. Douxo S3 CALM shampoo — bath twice weekly, leave-on mousse daily to affected areas.
+   Avoid over-bathing which can disrupt epidermal barrier.
+
+4. Environmental controls advised: HEPA air purifier in sleeping area, wash bedding at 60 C
+   weekly, avoid grass walking during peak pollen season (April-June), wipe paws with damp
+   cloth after outdoor walks.
+
+5. Reassess in 6 weeks. If this episode recurs or worsens, initiate allergen-specific
+   immunotherapy (ASIT) with the desensitisation protocol from BVSC allergy panel results.
+
+6. Owner fully counselled regarding the chronic, lifelong nature of atopic dermatitis in this
+   breed. Advised that this condition and all related treatments (Apoquel, Cytopoint, allergy
+   testing, immunotherapy) will be classified as a pre-existing condition under any insurance
+   policy incepted after June 2022. Adverse action notice to be issued with policy documents.
+
+Attending Veterinarian: Dr Priya Nair MRCVS
+Registration: 7023449 | RCVS Member

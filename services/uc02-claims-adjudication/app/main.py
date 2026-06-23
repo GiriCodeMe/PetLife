@@ -15,6 +15,7 @@ from typing import Optional
 
 import httpx
 from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from .models import (
@@ -143,6 +144,14 @@ app = FastAPI(
     title="UC-02 Claims Adjudication Service",
     description="Pet insurance claim adjudication with rule engine and LLM explanation.",
     version="1.0.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 security = HTTPBearer()

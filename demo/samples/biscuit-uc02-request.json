@@ -1,0 +1,64 @@
+{
+  "claim_id": "CLM-2025-0847",
+  "member_id": "MBR-00123",
+  "policy_id": "POL-FRBL-2025-0042",
+  "submission_date": "2025-03-20",
+  "submitted_by": "clinic",
+  "invoice": {
+    "clinic_name": "Paddington Veterinary Centre",
+    "clinic_address": "142 Praed Street, London W2 1HB",
+    "clinic_phone": "+44 20 7289 4543",
+    "invoice_number": "PVC-2025-00847",
+    "invoice_date": "2025-03-18",
+    "visit_date": "2025-03-18",
+    "patient_name": "Biscuit",
+    "patient_species": "Canine",
+    "patient_breed": "French Bulldog",
+    "owner_name": "Sarah Mitchell",
+    "line_items": [
+      {
+        "description": "Consultation - Dermatology Follow-up",
+        "category": "CONSULTATION",
+        "quantity": 1,
+        "unit_price": 85.00,
+        "line_total": 85.00
+      },
+      {
+        "description": "Intradermal Allergy Testing (48-antigen panel)",
+        "category": "DIAGNOSTICS",
+        "quantity": 1,
+        "unit_price": 320.00,
+        "line_total": 320.00
+      },
+      {
+        "description": "Apoquel 16mg Tablets x30",
+        "category": "MEDICATION",
+        "quantity": 1,
+        "unit_price": 74.50,
+        "line_total": 74.50
+      },
+      {
+        "description": "Cytopoint 40mg Injection",
+        "category": "MEDICATION",
+        "quantity": 1,
+        "unit_price": 112.00,
+        "line_total": 112.00
+      },
+      {
+        "description": "Skin Cytology and Culture",
+        "category": "LABORATORY",
+        "quantity": 1,
+        "unit_price": 68.00,
+        "line_total": 68.00
+      }
+    ],
+    "subtotal": 659.50,
+    "tax_rate": 0.0,
+    "tax_amount": 0.0,
+    "discount_amount": null,
+    "total_due": 659.50,
+    "amount_paid": 659.50,
+    "balance_due": 0.0,
+    "currency": "GBP"
+  }
+}

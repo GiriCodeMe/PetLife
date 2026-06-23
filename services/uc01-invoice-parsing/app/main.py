@@ -8,6 +8,7 @@ from typing import Any, Optional
 
 import httpx
 from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, PlainTextResponse
 from pydantic import ValidationError
 
@@ -153,6 +154,14 @@ app = FastAPI(
     title="UC-01 Invoice Parsing",
     version="1.0.0",
     description="Veterinary invoice parsing via pdfplumber + Llama 3.1 8B (Ollama)",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 

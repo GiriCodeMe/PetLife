@@ -1,6 +1,6 @@
-# Pet Life AI — Underwriting Workbench Demo Instructions
+# LifeGroup AI — Underwriting Workbench Demo Instructions
 
-_Generated: 2026-06-23_
+_Generated: 2026-06-23 · Updated: 2026-06-23_
 
 ---
 
@@ -53,7 +53,7 @@ infrastructure → models → services.
 ### Step 1 — Configure environment
 
 ```bash
-cd C:/PetLife/Services
+cd C:/AIBrain/specs/LifeGroup/Services
 
 cp .env.example .env
 ```
@@ -96,6 +96,12 @@ ollama pull qwen3:32b-q4_K_M
 > **NOTE:** `llama3.3:70b` is shared between UC-05 and UC-06. Pull it once; both services use the same Ollama instance on port 11434.
 
 ### Step 3 — Start the full stack
+
+> **NOTE:** CORS middleware was added to all 6 services to allow the `file://` demo HTML to call them directly from a browser. If you cloned the repo before this change, rebuild the images before starting:
+>
+> ```bash
+> docker compose build
+> ```
 
 ```bash
 docker compose up -d
@@ -498,19 +504,35 @@ Each agent emits a line as it completes: `data: {"agent":"Vet Tech","status":"DO
 
 ## 5. UI Demo Walkthrough
 
-The Underwriting Workbench is a single-file HTML demo that simulates the full pipeline without needing the backend services running. It uses pre-loaded mock data to demonstrate the end-to-end underwriting journey.
+The Underwriting Workbench is a single-file HTML demo that supports two operating modes:
+
+| Mode | When to use | Backend required? |
+|---|---|---|
+| **Demo Mode** (default) | Presentations, offline walkthroughs | No — uses pre-loaded mock results |
+| **Live API Mode** | Technical evaluations, proof-of-concept testing | Yes — all 6 Docker services must be running |
 
 ### Opening the demo
 
 ```
-C:\PetLife\demo\underwriting-workbench.html
+C:\AIBrain\specs\LifeGroup\demo\underwriting-workbench.html
 ```
 
 Open this file directly in any modern browser (Chrome, Edge, Firefox). No web server is required.
 
+### API Settings bar
+
+A settings bar sits above the case fields:
+
+- **Demo Mode / Live API toggle** — off by default (Demo Mode). Flip to enable live API calls.
+- **Base URL** — pre-filled `http://localhost`. Change only if the services run on a different host or port prefix.
+- **API Key** — pre-filled `demo-local-key-2026`. Must match the `API_KEY` value in your `.env` file.
+- **Status line** — shows live call progress and any API errors in amber; green on success.
+
+> **NOTE:** The toggle is a session control only — refreshing the page resets it to Demo Mode.
+
 ### Case Setup bar
 
-The top bar is pre-filled with the Biscuit/Mitchell demo case:
+The bar below API Settings is pre-filled with the Biscuit/Mitchell demo case:
 
 | Field | Default value | How to change |
 |---|---|---|
@@ -522,31 +544,61 @@ The top bar is pre-filled with the Biscuit/Mitchell demo case:
 | Postcode | SW1A 2AA | Type to replace |
 | Policy Type | ACCIDENT_ILLNESS | Dropdown |
 
-> **NOTE:** Changing the case setup fields changes the display labels only — the mock result data is fixed. For a live demo with a real prospect, run the actual API endpoints and swap in the response JSON.
+> **NOTE:** In Demo Mode, changing these fields updates display labels only — mock result data is fixed. In Live API Mode, species and breed values are sent to the services in each request.
 
-### Running the pipeline step by step
+### Running the pipeline — Demo Mode
 
-Work through each panel in the left sidebar order — this mirrors the data dependency chain:
+Work through each panel in the left sidebar order:
 
 | Step | Click in sidebar | Panel opens | Click button | Wait |
 |---|---|---|---|---|
-| 1 | UC-04 Breed & Fraud | Breed panel expands | **Run Service** | ~2 sec — photo analysis simulation |
-| 2 | UC-05 Medical History | History panel expands | **Run Service** | ~4 sec — 42-page record bundle |
-| 3 | UC-01 Invoice Parsing | Invoice panel expands | **Run Service** | ~2 sec — PDF extraction |
-| 4 | UC-03 Medical Coding | Coding panel expands | **Run Service** | ~3 sec — two-pass NLP coding |
-| 5 | UC-02 Adjudication | Claims panel expands | **Run Service** | ~2 sec — policy rule engine |
-| 6 | UC-06 Underwriting | Final panel expands | **Run Service** | ~5 sec — 5 AI agents |
+| 1 | UC-04 Breed & Fraud | Breed panel expands | **Run Service** | ~2 sec |
+| 2 | UC-05 Medical History | History panel expands | **Run Service** | ~4 sec |
+| 3 | UC-01 Invoice Parsing | Invoice panel expands | **Run Service** | ~2 sec |
+| 4 | UC-03 Medical Coding | Coding panel expands | **Run Service** | ~3 sec |
+| 5 | UC-02 Adjudication | Claims panel expands | **Run Service** | ~2 sec |
+| 6 | UC-06 Underwriting | Final panel expands | **Run Service** | ~5 sec |
 
 Each step transitions through three visual states:
 - **Pending** — grey ring in sidebar, "Run Service" button enabled
 - **Running** — blue pulsing ring, spinner shown in panel with contextual loading message
 - **Complete** — green filled ring, "✓ Done" badge on button, full result table visible
 
+### Running the pipeline — Live API Mode
+
+**Before starting:** confirm all 6 services are healthy (see Section 3).
+
+1. Flip the **Demo Mode → Live API** toggle in the settings bar.
+2. Three panels now show a file upload input above their loading spinner:
+
+| Panel | File to upload | Format |
+|---|---|---|
+| UC-04 Breed & Fraud | Pet photo | JPEG / PNG / WebP, 400×400 px min |
+| UC-05 Medical History | Multi-year vet record bundle | PDF |
+| UC-01 Invoice Parsing | Veterinary invoice | PDF |
+
+3. Run each step in sidebar order exactly as in Demo Mode. Services with no file upload (UC-03, UC-02, UC-06) use embedded Biscuit/Mitchell sample payloads automatically.
+
+4. On success a **🟢 Live API Result** banner appears at the top of each result panel showing the actual response values from the service. The detailed static result below it remains as a reference.
+
+5. On error the status bar turns amber with the error message. The step resets to **Pending** so it can be retried after fixing the issue.
+
+**Realistic Live API timing:**
+
+| Service | Typical response time |
+|---|---|
+| UC-04 Breed & Fraud | 5–15 sec (Vision LLM inference) |
+| UC-05 Medical History | 30–120 sec async (poll every 5 sec) |
+| UC-01 Invoice Parsing | 3–8 sec |
+| UC-03 Medical Coding | 8–20 sec |
+| UC-02 Adjudication | 5–12 sec |
+| UC-06 Multi-Agent Underwriting | 60–180 sec async (poll every 5 sec, up to 6 min) |
+
+> **NOTE:** UC-05 and UC-06 run asynchronously. After the initial POST returns 202, the UI polls automatically. The spinner text updates with each poll attempt. Do not navigate away from the page during polling.
+
 ### Running the full pipeline in one click
 
-Click **▶ Run Full Pipeline** in the top-right. All 6 services execute in sequence with staggered delays. The progress bar at the bottom of the sidebar fills from 0 → 100% as each step completes.
-
-Estimated total time for the auto-run demo: **~18 seconds**.
+Click **▶ Run Full Pipeline** in the top-right. In Demo Mode all 6 services run sequentially with staggered delays (~18 sec total). In Live API Mode they run sequentially against the real services — total time depends on GPU availability (see timing table above).
 
 ### Navigating results
 
@@ -560,10 +612,11 @@ Click any completed step in the sidebar to jump to and expand that panel. Clicki
 | UC-05 Medical History | Show the red PRE-EXISTING flags on Atopic Dermatitis and BOAS — this drives exclusions |
 | UC-02 Adjudication | Show how 3 of 5 line items are DENIED due to the pre-existing exclusion — £659 billed but only £73.20 reimbursable |
 | UC-06 Final Verdict | The full financial decision: £1,847 premium, 80% reimbursement, 2 exclusion riders, compliance PASS |
+| Any panel (Live mode) | Point to the 🟢 Live API Result banner — these numbers came from the actual AI model in real time |
 
 ### Resetting the demo
 
-Reload the page (`F5` / `Cmd-R`) to reset all steps to Pending and re-run the pipeline fresh.
+Reload the page (`F5` / `Cmd-R`) to reset all steps to Pending and clear any live banners.
 
 ---
 
@@ -579,6 +632,12 @@ Reload the page (`F5` / `Cmd-R`) to reset all steps to Pending and re-run the pi
 | `no such file or directory` in curl | Sample file path wrong | Use `ls ./samples/` to confirm file names exist |
 | HTML demo file is blank / unstyled | CSS inject script not run | Re-run: `node .codemie/claude-plugin/skills/codemie-html-report/scripts/inject-css.js demo/underwriting-workbench.html` |
 | Docker containers start but Ollama says model not found | Compose started before pull finished | `ollama pull <model>` then `docker compose restart uc0X-name` |
+| Live API: fetch blocked by CORS error in browser console | Services built before CORS patch was added | Run `docker compose build` then `docker compose up -d` to rebuild all images |
+| Live API: status bar shows "No file selected" on UC-01/04/05 | File upload input left blank | Click the file input that appears above the spinner in each panel and select a file before clicking Run Service |
+| Live API: UC-05 or UC-06 spinner shows "Poll attempt N/60…" for minutes | Large model on CPU-only host | Expected behaviour — let it run or abort and switch to Demo Mode for the presentation |
+| Live API: poll times out after 60 attempts | Service crashed mid-job | Check logs (`docker compose logs -f uc05-history`) — restart the container and retry |
+| Live API: status bar turns red on every service | Wrong API key or Base URL | Confirm the API key matches `API_KEY` in `.env`; confirm Base URL is `http://localhost` (no trailing slash) |
+| Live API: 🟢 banner shows but numbers differ from static result | Expected — live model output varies | This is correct behaviour; the static panel is a reference, not a ground-truth fixture |
 
 ### Log inspection per service
 
@@ -603,4 +662,4 @@ All 6 models (or 7 unique models if counting the shared 70B) should appear with 
 
 ---
 
-_End of document — LifeGroup AI Underwriting Workbench v1.0_
+_End of document — LifeGroup AI Underwriting Workbench v1.1_
