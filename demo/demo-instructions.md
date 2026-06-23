@@ -1,4 +1,4 @@
-# LifeGroup AI — Underwriting Workbench Demo Instructions
+# Pet Life AI — Underwriting Workbench Demo Instructions
 
 _Generated: 2026-06-23_
 
