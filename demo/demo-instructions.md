@@ -53,7 +53,7 @@ infrastructure → models → services.
 ### Step 1 — Configure environment
 
 ```bash
-cd C:/AIBrain/specs/LifeGroup/Services
+cd C:/PetLife/Services
 
 cp .env.example .env
 ```
