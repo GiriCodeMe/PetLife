@@ -1,0 +1,97 @@
+version: "3.9"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpass
+      POSTGRES_DB: breeddb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./uc04-breed-fraud/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  uc01-invoice-parsing:
+    build: ./uc01-invoice-parsing
+    container_name: uc01-invoice-parsing
+    ports:
+      - "8001:8000"
+    env_file: .env
+    depends_on: [ollama, redis]
+    restart: unless-stopped
+
+  uc02-claims-adjudication:
+    build: ./uc02-claims-adjudication
+    container_name: uc02-claims-adjudication
+    ports:
+      - "8002:8000"
+    env_file: .env
+    depends_on: [ollama, redis]
+    restart: unless-stopped
+
+  uc03-medical-coding:
+    build: ./uc03-medical-coding
+    container_name: uc03-medical-coding
+    ports:
+      - "8003:8000"
+    env_file: .env
+    depends_on: [ollama]
+    restart: unless-stopped
+
+  uc04-breed-fraud:
+    build: ./uc04-breed-fraud
+    container_name: uc04-breed-fraud
+    ports:
+      - "8004:8000"
+    env_file: .env
+    depends_on: [ollama, postgres]
+    restart: unless-stopped
+
+  uc05-history-review:
+    build: ./uc05-history-review
+    container_name: uc05-history-review
+    ports:
+      - "8005:8000"
+    env_file: .env
+    depends_on: [ollama, redis]
+    restart: unless-stopped
+
+  uc06-underwriting:
+    build: ./uc06-underwriting
+    container_name: uc06-underwriting
+    ports:
+      - "8006:8000"
+    env_file: .env
+    depends_on: [ollama, redis]
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  postgres_data:
