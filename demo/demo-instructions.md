@@ -503,7 +503,7 @@ The Underwriting Workbench is a single-file HTML demo that simulates the full pi
 ### Opening the demo
 
 ```
-C:\AIBrain\specs\LifeGroup\demo\underwriting-workbench.html
+C:\PetLife\demo\underwriting-workbench.html
 ```
 
 Open this file directly in any modern browser (Chrome, Edge, Firefox). No web server is required.
